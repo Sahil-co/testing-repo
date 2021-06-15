@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.ebug.dao.ProjectDao;
 import com.project.ebug.entity.Project;
+import com.project.ebug.exceptions.ProjectNotFoundException;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -22,24 +23,24 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public Project updateProject(Long id, Project project) {
-		Optional<Project> proj = projectDao.findById(id);
-		Project p = proj.get();
-		p.setName(project.getName());
-		p.setType(project.getType());
-		p.setDescription(project.getDescription());
-		projectDao.save(p);
-		return p;
+		Project updatedProject = projectDao.findById(id).orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " not found"));
+		updatedProject.setName(project.getName());
+		updatedProject.setType(project.getType());
+		updatedProject.setDescription(project.getDescription());
+		projectDao.save(updatedProject);
+		return updatedProject;
 	}
 
 	@Override
 	public void deleteProject(Long id) {
+		Project project = projectDao.findById(id).orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " not found"));
 		projectDao.deleteById(id);
 	}
 
 	@Override
 	public Project viewProject(Long id) {
-		Optional<Project> proj = projectDao.findById(id);
-		return proj.get();
+		Project proj = projectDao.findById(id).orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " not found"));;
+		return proj;
 	}
 
 	@Override

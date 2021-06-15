@@ -1,13 +1,13 @@
 package com.project.ebug.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="project")
@@ -18,12 +18,18 @@ public class Project{
 	@Column(name="project_id")
 	private Long id;
 	
+	@NotNull(message="Project Name is mandatory")
+	@Size(min = 5, message = "Project name must be minimum 5 characters")
 	@Column(name="project_name")
 	private String name;
 	
+	@NotNull(message="Project Type is mandatory")
+	@Size(min = 5, message = "Project type must be minimum 5 characters")
 	@Column(name="project_type")
 	private String type;
 	
+	@NotNull(message="Project Description is mandatory")
+	@Size(min = 5, message = "Project description must be minimum 5 characters")
 	@Column(name="project_description")
 	private String description;
 	

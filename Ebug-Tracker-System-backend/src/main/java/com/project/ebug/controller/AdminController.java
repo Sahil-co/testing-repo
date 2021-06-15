@@ -2,9 +2,12 @@ package com.project.ebug.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,19 +22,20 @@ import com.project.ebug.service.AdminServiceImpl;
 
 @RestController
 @RequestMapping("/admin")
+@Validated
 public class AdminController {
 
 	@Autowired
 	private AdminServiceImpl adminService;
 	
 	@PostMapping("/addProject")
-	public ResponseEntity<Project> addProject(@RequestBody Project project){
+	public ResponseEntity<Project> addProject(@Valid @RequestBody Project project){
 		Project newProject = adminService.addProject(project);
 		return new ResponseEntity<>(newProject, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updateProject/{id}")
-	public ResponseEntity<Project> updateProject(@PathVariable("id") Long id, @RequestBody Project project){
+	public ResponseEntity<Project> updateProject(@PathVariable("id") Long id, @Valid @RequestBody Project project){
 		Project updatedProject = adminService.updateProject(id, project);
 		return new ResponseEntity<>(updatedProject, HttpStatus.OK);
 	}

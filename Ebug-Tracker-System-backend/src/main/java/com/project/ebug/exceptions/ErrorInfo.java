@@ -1,25 +1,29 @@
 package com.project.ebug.exceptions;
 
+import java.util.Date;
+
 public class ErrorInfo {
 	
-	private String url;
+	private Date timestamp;
 	private String message;
+	private String details;
 	
 	public ErrorInfo() {
 	}
 
-	public ErrorInfo(String url, String message) {
+	public ErrorInfo(Date timestamp, String message, String details) {
 		super();
-		this.url = url;
+		this.timestamp = timestamp;
 		this.message = message;
+		this.details = details;
 	}
 
-	public String getUrl() {
-		return url;
+	public Date getTimestamp() {
+		return timestamp;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public String getMessage() {
@@ -30,9 +34,17 @@ public class ErrorInfo {
 		this.message = message;
 	}
 
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
 	@Override
 	public String toString() {
-		return "ErrorInfo [url=" + url + ", message=" + message + "]";
+		return "ErrorInfo [timestamp=" + timestamp + ", message=" + message + ", details=" + details + "]";
 	}
 
 }
